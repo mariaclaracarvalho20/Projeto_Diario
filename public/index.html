@@ -2,7 +2,7 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Diário Animado</title>
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
 
@@ -76,43 +76,21 @@
       <input id="registerName" type="text" placeholder="Nome" class="w-full p-2 mb-3 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-black dark:text-white" />
       <input id="registerEmail" type="email" placeholder="Email" class="w-full p-2 mb-3 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-black dark:text-white" />
       <input id="registerPassword" type="password" placeholder="Senha" class="w-full p-2 mb-4 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-black dark:text-white" />
-      <button id="registerBtn" type="button" class="bg-primary text-white py-2 px-6 rounded-full hover:bg-blue-800 transition">Registrar</button>
+      <button id="registerBtn" class="bg-primary text-white py-2 px-6 rounded-full hover:bg-blue-800 transition">Registrar</button>
       <button id="backToLoginBtn" class="mt-6 text-primary dark:text-white hover:underline text-sm">← Voltar ao login</button>
     </div>
 
     <div id="dashboard" class="hidden bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 text-center max-w-md animate-fadeIn transition-all duration-300 transform hover:scale-[1.01]">
       <h2 class="text-2xl text-primary dark:text-white font-bold mb-4">Bem-vindo(a), <span id="userName"></span>!</h2>
       <p class="text-gray-700 dark:text-gray-300 mb-6">Aqui você pode registrar seus pensamentos, memórias e sonhos.</p>
+      <button id="newEntryBtn" class="bg-accent text-primary py-2 px-6 rounded-full shadow-md hover:bg-green-400 transition mb-4">Iniciar Novo Registro</button>
       <button id="logoutBtn" class="bg-primary text-white py-2 px-6 rounded-full hover:bg-blue-800 transition">Sair</button>
     </div>
 
-    
-
-    <script type="module">
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
-      import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-analytics.js";
-      import {
-        getAuth,
-        createUserWithEmailAndPassword,
-        signInWithEmailAndPassword,
-        updateProfile,
-        signOut,
-        onAuthStateChanged,
-      } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
-
-      const firebaseConfig = {
-        apiKey: "AIzaSyBPl-srmPiWmAzA6OuXyCsUdts8B6ipCBM",
-        authDomain: "diario-55359.firebaseapp.com",
-        projectId: "diario-55359",
-        storageBucket: "diario-55359.firebasestorage.app",
-        messagingSenderId: "229362802589",
-        appId: "1:229362802589:web:c3586269c128e4f4919974",
-        measurementId: "G-71JDE9PP8K"
-      };
-
-      const app = initializeApp(firebaseConfig);
-      const analytics = getAnalytics(app);
-      const auth = getAuth(app);
+    <script>
+      // Referências aos elementos
+      const themeToggle = document.getElementById('themeToggle');
+      const mainBody = document.getElementById('mainBody');
 
       const intro = document.getElementById('intro');
       const loginForm = document.getElementById('loginForm');
@@ -120,123 +98,99 @@
       const dashboard = document.getElementById('dashboard');
 
       const startBtn = document.getElementById('startBtn');
-      const backBtn = document.getElementById('backBtn');
       const createAccountBtn = document.getElementById('createAccountBtn');
+      const backBtn = document.getElementById('backBtn');
       const backToLoginBtn = document.getElementById('backToLoginBtn');
 
       const loginBtn = document.getElementById('loginBtn');
-      const logoutBtn = document.getElementById('logoutBtn');
       const registerBtn = document.getElementById('registerBtn');
+
+      const logoutBtn = document.getElementById('logoutBtn');
+      const newEntryBtn = document.getElementById('newEntryBtn');
 
       const userNameSpan = document.getElementById('userName');
 
-      const loginEmail = document.getElementById('loginEmail');
-      const loginPassword = document.getElementById('loginPassword');
-      const registerName = document.getElementById('registerName');
-      const registerEmail = document.getElementById('registerEmail');
-      const registerPassword = document.getElementById('registerPassword');
+      // Troca de tema (claro / escuro)
+      themeToggle.addEventListener('click', () => {
+        if (document.documentElement.classList.contains('dark')) {
+          document.documentElement.classList.remove('dark');
+          themeToggle.textContent = '🌙 Modo Escuro';
+        } else {
+          document.documentElement.classList.add('dark');
+          themeToggle.textContent = '☀️ Modo Claro';
+        }
+      });
 
-      const themeToggle = document.getElementById('themeToggle');
-
-      startBtn.addEventListener('click', () => {
+      // Função para esconder todos os "pages"
+      function hideAll() {
         intro.classList.add('hidden');
+        loginForm.classList.add('hidden');
+        registerForm.classList.add('hidden');
+        dashboard.classList.add('hidden');
+      }
+
+      // Começar na tela intro
+      hideAll();
+      intro.classList.remove('hidden');
+
+      // Botão "Começar agora" -> mostra tela login
+      startBtn.addEventListener('click', () => {
+        hideAll();
         loginForm.classList.remove('hidden');
       });
 
-      backBtn.addEventListener('click', () => {
-        loginForm.classList.add('hidden');
-        intro.classList.remove('hidden');
-      });
-
+      // Botão "Criar conta" no login -> mostra tela registro
       createAccountBtn.addEventListener('click', () => {
-        loginForm.classList.add('hidden');
+        hideAll();
         registerForm.classList.remove('hidden');
       });
 
-      backToLoginBtn.addEventListener('click', () => {
-        registerForm.classList.add('hidden');
-        loginForm.classList.remove('hidden');
-      });
-
-      let darkMode = false;
-      themeToggle.addEventListener('click', () => {
-        darkMode = !darkMode;
-        document.documentElement.classList.toggle('dark');
-        themeToggle.textContent = darkMode ? '☀️ Modo Claro' : '🌙 Modo Escuro';
-      });
-
-      registerBtn.addEventListener('click', async () => {
-        const nome = registerName.value.trim();
-        const email = registerEmail.value.trim();
-        const senha = registerPassword.value.trim();
-
-        if (!nome || !email || !senha) {
-          alert('Por favor, preencha todos os campos!');
-          return;
-        }
-
-        try {
-          const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
-          await updateProfile(userCredential.user, { displayName: nome });
-          alert('Conta criada com sucesso! Você pode fazer login agora.');
-
-          registerName.value = '';
-          registerEmail.value = '';
-          registerPassword.value = '';
-
-          registerForm.classList.add('hidden');
-          loginForm.classList.remove('hidden');
-        } catch (error) {
-          console.error(error);
-          alert('Erro ao criar conta: ' + error.message);
-        }
-      });
-
-      loginBtn.addEventListener('click', async () => {
-        const email = loginEmail.value.trim();
-        const senha = loginPassword.value.trim();
-
-        if (!email || !senha) {
-          alert('Por favor, informe seu email e senha!');
-          return;
-        }
-
-        try {
-          const userCredential = await signInWithEmailAndPassword(auth, email, senha);
-          const user = userCredential.user;
-
-          loginForm.classList.add('hidden');
-          intro.classList.add('hidden');
-          registerForm.classList.add('hidden');
-
-          userNameSpan.textContent = user.displayName || user.email;
-          dashboard.classList.remove('hidden');
-
-          loginEmail.value = '';
-          loginPassword.value = '';
-        } catch (error) {
-          console.error(error);
-          alert('Erro ao fazer login: ' + error.message);
-        }
-      });
-
-      logoutBtn.addEventListener('click', async () => {
-        await signOut(auth);
-        dashboard.classList.add('hidden');
+      // Botão "Voltar à página inicial" no login -> mostra intro
+      backBtn.addEventListener('click', () => {
+        hideAll();
         intro.classList.remove('hidden');
       });
 
-      onAuthStateChanged(auth, (user) => {
-        if (user) {
-          intro.classList.add('hidden');
-          loginForm.classList.add('hidden');
-          registerForm.classList.add('hidden');
-          dashboard.classList.remove('hidden');
-          userNameSpan.textContent = user.displayName || user.email;
-        } else {
-          dashboard.classList.add('hidden');
-          intro.classList.remove('hidden');
+      // Botão "Voltar ao login" no registro -> mostra login
+      backToLoginBtn.addEventListener('click', () => {
+        hideAll();
+        loginForm.classList.remove('hidden');
+      });
+
+      // Botão "Entrar" (login) - aqui só simula sucesso e vai para dashboard
+      loginBtn.addEventListener('click', () => {
+        // Simulação: pega email para mostrar no dashboard
+        const email = document.getElementById('loginEmail').value;
+        if (email.trim() === '') {
+          alert('Por favor, insira seu email');
+          return;
         }
+        userNameSpan.textContent = email;
+        hideAll();
+        dashboard.classList.remove('hidden');
+      });
+
+      // Botão "Registrar" (registro) - simulação
+      registerBtn.addEventListener('click', () => {
+        const name = document.getElementById('registerName').value;
+        if (name.trim() === '') {
+          alert('Por favor, insira seu nome');
+          return;
+        }
+        userNameSpan.textContent = name;
+        hideAll();
+        dashboard.classList.remove('hidden');
+      });
+
+      // Botão "Sair" no dashboard volta para a intro
+      logoutBtn.addEventListener('click', () => {
+        hideAll();
+        intro.classList.remove('hidden');
+      });
+
+      // Botão "Iniciar Novo Registro" - placeholder (alerta)
+      newEntryBtn.addEventListener('click', () => {
+        alert('Funcionalidade para novo registro em desenvolvimento!');
       });
     </script>
   </body>
