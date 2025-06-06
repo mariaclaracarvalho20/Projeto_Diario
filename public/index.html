@@ -111,286 +111,53 @@
           Criar conta
         </button>
       </div>
-      <button
-        id="backBtn"
-        class="mt-6 text-primary dark:text-white hover:underline text-sm"
-      >
-        ← Voltar à página inicial
-      </button>
+      <button id="backBtn" class="mt-6 text-primary dark:text-white hover:underline text-sm">← Voltar à página inicial</button>
     </div>
 
-    <div
-      id="registerForm"
-      class="hidden bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 text-center max-w-md animate-fadeIn transition-all duration-300 transform hover:scale-[1.01]"
-    >
-      <h2 class="text-2xl text-primary dark:text-white font-bold mb-4">
-        Criar Conta
-      </h2>
-      <input
-        id="registerName"
-        type="text"
-        placeholder="Nome"
-        class="w-full p-2 mb-3 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-black dark:text-white"
-      />
-      <input
-        id="registerEmail"
-        type="email"
-        placeholder="Email"
-        class="w-full p-2 mb-3 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-black dark:text-white"
-      />
-      <input
-        id="registerPassword"
-        type="password"
-        placeholder="Senha"
-        class="w-full p-2 mb-4 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-black dark:text-white"
-      />
-      <button
-        id="registerBtn"
-        type="button"
-        class="bg-primary text-white py-2 px-6 rounded-full hover:bg-blue-800 transition"
-      >
-        Registrar
-      </button>
-      <button
-        id="backToLoginBtn"
-        class="mt-6 text-primary dark:text-white hover:underline text-sm"
-      >
-        ← Voltar ao login
-      </button>
+    <div id="registerForm" class="hidden bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 text-center max-w-md animate-fadeIn transition-all duration-300 transform hover:scale-[1.01]">
+      <h2 class="text-2xl text-primary dark:text-white font-bold mb-4">Criar Conta</h2>
+      <input id="registerName" type="text" placeholder="Nome" class="w-full p-2 mb-3 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-black dark:text-white" />
+      <input id="registerEmail" type="email" placeholder="Email" class="w-full p-2 mb-3 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-black dark:text-white" />
+      <input id="registerPassword" type="password" placeholder="Senha" class="w-full p-2 mb-4 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-black dark:text-white" />
+      <button id="registerBtn" class="bg-primary text-white py-2 px-6 rounded-full hover:bg-blue-800 transition">Registrar</button>
+      <button id="backToLoginBtn" class="mt-6 text-primary dark:text-white hover:underline text-sm">← Voltar ao login</button>
     </div>
 
     <div id="dashboard" class="hidden bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 text-center max-w-md animate-fadeIn transition-all duration-300 transform hover:scale-[1.01]">
       <h2 class="text-2xl text-primary dark:text-white font-bold mb-4">Bem-vindo(a), <span id="userName"></span>!</h2>
       <p class="text-gray-700 dark:text-gray-300 mb-6">Aqui você pode registrar seus pensamentos, memórias e sonhos.</p>
-      
-      <div class="flex flex-col items-center gap-3">
-        <button id="newEntryBtn" class="bg-accent text-primary py-2 px-6 rounded-full shadow-md hover:bg-green-400 transition">Iniciar Novo Registro</button>
-        <button id="logoutBtn" class="bg-primary text-white py-2 px-6 rounded-full hover:bg-blue-800 transition">Sair</button>
-      </div>
+      <button id="newEntryBtn" class="bg-accent text-primary py-2 px-6 rounded-full shadow-md hover:bg-green-400 transition mb-4">Iniciar Novo Registro</button>
+      <button id="logoutBtn" class="bg-primary text-white py-2 px-6 rounded-full hover:bg-blue-800 transition">Sair</button>
     </div>
 
-    <!-- Novo formulário de registro -->
-    <div
-      id="entryForm"
-      class="hidden bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 max-w-3xl animate-fadeIn transition-all duration-300"
-    >
-      <style>
-        /* Estilos específicos para o diário dentro do Tailwind */
-        .diary-textarea {
-          width: 100%;
-          height: 300px;
-          border: 2px dashed #ff6b6b;
-          border-radius: 15px;
-          padding: 15px;
-          font-size: 1.1em;
-          resize: none;
-          transition: all 0.3s;
-          background: rgba(255, 255, 255, 0.7);
-          color: #333;
-        }
-        
-        .dark .diary-textarea {
-          background: rgba(30, 30, 30, 0.7);
-          color: #fff;
-          border-color: #4ca1af;
-        }
-        
-        .diary-textarea:focus {
-          border: 2px solid #ff6b6b;
-          box-shadow: 0 0 10px rgba(255, 107, 107, 0.3);
-          outline: none;
-        }
-        
-        .emoji-btn {
-          font-size: 1.5em;
-          cursor: pointer;
-          transition: transform 0.2s;
-        }
-        
-        .emoji-btn:hover {
-          transform: scale(1.2);
-        }
-        
-        .mood-btn {
-          background: none;
-          border: none;
-          font-size: 2em;
-          cursor: pointer;
-          margin: 0 5px;
-        }
-        
-        .confetti {
-          position: fixed;
-          width: 10px;
-          height: 10px;
-          background-color: #f00;
-          animation: confettiFall 5s linear infinite;
-        }
-        
-        @keyframes confettiFall {
-          0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
-          100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
-        }
-      </style>
+    <script>
+      // Referências aos elementos
+      const themeToggle = document.getElementById('themeToggle');
+      const mainBody = document.getElementById('mainBody');
 
-      <h2 class="text-2xl text-primary dark:text-white font-bold mb-4 text-center">
-        🌟 Novo Registro Feliz 🌟
-      </h2>
-      
-      <div class="text-primary dark:text-white mb-4 text-center" id="current-date"></div>
-      
-      <div class="mood-selector text-center mb-4">
-        <p class="text-gray-700 dark:text-gray-300 mb-2">Como está seu humor hoje?</p>
-        <button class="mood-btn" onclick="setMood('😊')">😊</button>
-        <button class="mood-btn" onclick="setMood('😂')">😂</button>
-        <button class="mood-btn" onclick="setMood('🥰')">🥰</button>
-        <button class="mood-btn" onclick="setMood('😎')">😎</button>
-        <button class="mood-btn" onclick="setMood('🤩')">🤩</button>
-      </div>
+      const intro = document.getElementById('intro');
+      const loginForm = document.getElementById('loginForm');
+      const registerForm = document.getElementById('registerForm');
+      const dashboard = document.getElementById('dashboard');
 
-      <div class="emoji-picker flex justify-center gap-3 mb-4">
-        <span class="emoji-btn" onclick="insertEmoji('😊')">😊</span>
-        <span class="emoji-btn" onclick="insertEmoji('🌈')">🌈</span>
-        <span class="emoji-btn" onclick="insertEmoji('🎉')">🎉</span>
-        <span class="emoji-btn" onclick="insertEmoji('✨')">✨</span>
-        <span class="emoji-btn" onclick="insertEmoji('🌸')">🌸</span>
-      </div>
+      const startBtn = document.getElementById('startBtn');
+      const createAccountBtn = document.getElementById('createAccountBtn');
+      const backBtn = document.getElementById('backBtn');
+      const backToLoginBtn = document.getElementById('backToLoginBtn');
 
-      <input
-        id="entryTitle"
-        type="text"
-        placeholder="Título do seu dia"
-        class="w-full p-2 mb-3 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-black dark:text-white"
-      />
-      
-      <textarea
-        id="entryText"
-        class="diary-textarea"
-        placeholder="Escreva aqui sobre seu dia feliz..."
-      ></textarea>
+      const loginBtn = document.getElementById('loginBtn');
+      const registerBtn = document.getElementById('registerBtn');
 
-      <div class="flex justify-center gap-4 mt-6">
-        <button
-          id="saveEntryBtn"
-          class="bg-primary text-white py-2 px-6 rounded-full hover:bg-blue-800 transition flex items-center gap-2"
-        >
-          <span>💾</span> Salvar
-        </button>
-        <button
-          id="celebrateBtn"
-          class="bg-accent text-primary py-2 px-6 rounded-full hover:bg-green-400 transition flex items-center gap-2"
-        >
-          <span>🎉</span> Celebrar!
-        </button>
-        <button
-          id="cancelEntryBtn"
-          class="bg-gray-500 text-white py-2 px-6 rounded-full hover:bg-gray-600 transition flex items-center gap-2"
-        >
-          <span>✖</span> Cancelar
-        </button>
-      </div>
-    </div>
+      const logoutBtn = document.getElementById('logoutBtn');
+      const newEntryBtn = document.getElementById('newEntryBtn');
 
-    <script type="module">
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
-      import {
-        getAuth,
-        onAuthStateChanged,
-        signInWithEmailAndPassword,
-        createUserWithEmailAndPassword,
-        updateProfile,
-        signOut,
-      } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
-      import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
+      const userNameSpan = document.getElementById('userName');
 
-      // Configuração do Firebase com suas credenciais
-      const firebaseConfig = {
-        apiKey: "AIzaSyBPl-srmPiWmAzA6OuXyCsUdts8B6ipCBM",
-        authDomain: "diario-55359.firebaseapp.com",
-        projectId: "diario-55359",
-        storageBucket: "diario-55359.appspot.com",
-        messagingSenderId: "229362802589",
-        appId: "1:229362802589:web:c3586269c128e4f4919974",
-        measurementId: "G-71JDE9PP8K"
-      };
-
-      // Inicializa Firebase
-      const app = initializeApp(firebaseConfig);
-      const auth = getAuth(app);
-      const db = getFirestore(app);
-
-      // Elementos do DOM
-      const intro = document.getElementById("intro");
-      const loginForm = document.getElementById("loginForm");
-      const registerForm = document.getElementById("registerForm");
-      const dashboard = document.getElementById("dashboard");
-      const entryForm = document.getElementById("entryForm");
-
-      const startBtn = document.getElementById("startBtn");
-      const createAccountBtn = document.getElementById("createAccountBtn");
-      const backBtn = document.getElementById("backBtn");
-      const backToLoginBtn = document.getElementById("backToLoginBtn");
-      const loginBtn = document.getElementById("loginBtn");
-      const registerBtn = document.getElementById("registerBtn");
-      const logoutBtn = document.getElementById("logoutBtn");
-      const newEntryBtn = document.getElementById("newEntryBtn");
-      const saveEntryBtn = document.getElementById("saveEntryBtn");
-      const cancelEntryBtn = document.getElementById("cancelEntryBtn");
-      const celebrateBtn = document.getElementById("celebrateBtn");
-
-      const userNameDisplay = document.getElementById("userName");
-      const currentDateDisplay = document.getElementById("current-date");
-
-      // Variável global para armazenar o humor selecionado
-      let currentMood = '😊';
-
-      // Funções auxiliares
-      function showScreen(screen) {
-        [intro, loginForm, registerForm, dashboard, entryForm].forEach((el) => {
-          el.classList.add("hidden");
-        });
-        screen.classList.remove("hidden");
-      }
-
-      function setMood(mood) {
-        currentMood = mood;
-        alert(`Humor definido como: ${mood}`);
-      }
-
-      function insertEmoji(emoji) {
-        const textarea = document.getElementById("entryText");
-        textarea.value += emoji;
-        textarea.focus();
-      }
-
-      function createConfetti() {
-        for (let i = 0; i < 100; i++) {
-          const confetti = document.createElement("div");
-          confetti.className = "confetti";
-          confetti.style.left = `${Math.random() * 100}vw`;
-          confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
-          confetti.style.animationDuration = `${Math.random() * 3 + 2}s`;
-          document.body.appendChild(confetti);
-          
-          setTimeout(() => {
-            confetti.remove();
-          }, 5000);
-        }
-      }
-
-      // Atualiza a data atual
-      function updateCurrentDate() {
-        const now = new Date();
-        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-        currentDateDisplay.textContent = now.toLocaleDateString('pt-BR', options);
-      }
-
-      // Alternar tema
-      const themeToggle = document.getElementById("themeToggle");
-      themeToggle.addEventListener("click", () => {
-        document.body.classList.toggle("dark");
-        if (document.body.classList.contains("dark")) {
-          themeToggle.textContent = "☀️ Modo Claro";
+      // Troca de tema (claro / escuro)
+      themeToggle.addEventListener('click', () => {
+        if (document.documentElement.classList.contains('dark')) {
+          document.documentElement.classList.remove('dark');
+          themeToggle.textContent = '🌙 Modo Escuro';
         } else {
           themeToggle.textContent = "🌙 Modo Escuro";
         }
@@ -442,112 +209,21 @@
           alert("Por favor, preencha todos os campos.");
           return;
         }
-
-        try {
-          const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-          const user = userCredential.user;
-          
-          // Atualiza o nome do usuário
-          await updateProfile(user, { displayName: name });
-          userNameDisplay.textContent = name;
-          showScreen(dashboard);
-          
-          // Cria um documento inicial para o usuário
-          await addDoc(collection(db, "users"), {
-            uid: user.uid,
-            name: name,
-            email: email,
-            createdAt: serverTimestamp()
-          });
-        } catch (error) {
-          alert("Erro ao registrar: " + error.message);
-          console.error("Erro de registro:", error);
-        }
+        userNameSpan.textContent = name;
+        hideAll();
+        dashboard.classList.remove('hidden');
       });
 
-      logoutBtn.addEventListener("click", async () => {
-        try {
-          await signOut(auth);
-          showScreen(intro);
-        } catch (error) {
-          alert("Erro ao sair: " + error.message);
-          console.error("Erro ao deslogar:", error);
-        }
+      // Botão "Sair" no dashboard volta para a intro
+      logoutBtn.addEventListener('click', () => {
+        hideAll();
+        intro.classList.remove('hidden');
       });
 
-      newEntryBtn.addEventListener("click", () => {
-        document.getElementById("entryTitle").value = "";
-        document.getElementById("entryText").value = "";
-        updateCurrentDate();
-        showScreen(entryForm);
+      // Botão "Iniciar Novo Registro" - placeholder (alerta)
+      newEntryBtn.addEventListener('click', () => {
+        alert('Funcionalidade para novo registro em desenvolvimento!');
       });
-
-      cancelEntryBtn.addEventListener("click", () => {
-        showScreen(dashboard);
-      });
-
-      celebrateBtn.addEventListener("click", () => {
-        createConfetti();
-      });
-
-      saveEntryBtn.addEventListener("click", async () => {
-        const title = document.getElementById("entryTitle").value.trim();
-        const text = document.getElementById("entryText").value.trim();
-        const user = auth.currentUser;
-
-        if (!title || !text) {
-          alert("Por favor, preencha título e descrição.");
-          return;
-        }
-
-        if (!user) {
-          alert("Você precisa estar logado para salvar registros.");
-          showScreen(loginForm);
-          return;
-        }
-
-        // Mostrar feedback visual
-        saveEntryBtn.disabled = true;
-        saveEntryBtn.innerHTML = '<span>⏳</span> Salvando...';
-
-        try {
-          // Salva a entrada no Firestore
-          const docRef = await addDoc(collection(db, "entries"), {
-            userId: user.uid,
-            userName: user.displayName || user.email,
-            title: title,
-            content: text,
-            mood: currentMood,
-            createdAt: serverTimestamp(),
-            updatedAt: serverTimestamp()
-          });
-          
-          console.log("Registro salvo com ID: ", docRef.id);
-          alert("Registro salvo com sucesso!");
-          showScreen(dashboard);
-        } catch (error) {
-          console.error("Erro ao adicionar documento: ", error);
-          alert("Erro ao salvar registro: " + error.message);
-        } finally {
-          // Restaurar botão
-          saveEntryBtn.disabled = false;
-          saveEntryBtn.innerHTML = '<span>💾</span> Salvar';
-        }
-      });
-
-      // Verifica estado de autenticação ao carregar a página
-      onAuthStateChanged(auth, (user) => {
-        if (user) {
-          userNameDisplay.textContent = user.displayName || user.email;
-          showScreen(dashboard);
-        } else {
-          showScreen(intro);
-        }
-        
-      });
-
-      // Inicializa a data atual
-      updateCurrentDate();
     </script>
   </body>
 </html>
