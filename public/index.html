@@ -160,14 +160,14 @@
     </div>
 
     <div id="dashboard" class="hidden bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 text-center max-w-md animate-fadeIn transition-all duration-300 transform hover:scale-[1.01]">
-  <h2 class="text-2xl text-primary dark:text-white font-bold mb-4">Bem-vindo(a), <span id="userName"></span>!</h2>
-  <p class="text-gray-700 dark:text-gray-300 mb-6">Aqui você pode registrar seus pensamentos, memórias e sonhos.</p>
-  
-  <div class="flex flex-col items-center gap-3">
-    <button id="newEntryBtn" class="bg-accent text-primary py-2 px-6 rounded-full shadow-md hover:bg-green-400 transition">Iniciar Novo Registro</button>
-    <button id="logoutBtn" class="bg-primary text-white py-2 px-6 rounded-full hover:bg-blue-800 transition">Sair</button>
-  </div>
-</div>
+      <h2 class="text-2xl text-primary dark:text-white font-bold mb-4">Bem-vindo(a), <span id="userName"></span>!</h2>
+      <p class="text-gray-700 dark:text-gray-300 mb-6">Aqui você pode registrar seus pensamentos, memórias e sonhos.</p>
+      
+      <div class="flex flex-col items-center gap-3">
+        <button id="newEntryBtn" class="bg-accent text-primary py-2 px-6 rounded-full shadow-md hover:bg-green-400 transition">Iniciar Novo Registro</button>
+        <button id="logoutBtn" class="bg-primary text-white py-2 px-6 rounded-full hover:bg-blue-800 transition">Sair</button>
+      </div>
+    </div>
 
     <!-- Novo formulário de registro -->
     <div
@@ -308,7 +308,7 @@
         apiKey: "AIzaSyBPl-srmPiWmAzA6OuXyCsUdts8B6ipCBM",
         authDomain: "diario-55359.firebaseapp.com",
         projectId: "diario-55359",
-        storageBucket: "diario-55359.firebasestorage.app",
+        storageBucket: "diario-55359.appspot.com",
         messagingSenderId: "229362802589",
         appId: "1:229362802589:web:c3586269c128e4f4919974",
         measurementId: "G-71JDE9PP8K"
@@ -336,15 +336,53 @@
       const newEntryBtn = document.getElementById("newEntryBtn");
       const saveEntryBtn = document.getElementById("saveEntryBtn");
       const cancelEntryBtn = document.getElementById("cancelEntryBtn");
+      const celebrateBtn = document.getElementById("celebrateBtn");
 
       const userNameDisplay = document.getElementById("userName");
+      const currentDateDisplay = document.getElementById("current-date");
 
-      // Controle de telas
+      // Variável global para armazenar o humor selecionado
+      let currentMood = '😊';
+
+      // Funções auxiliares
       function showScreen(screen) {
         [intro, loginForm, registerForm, dashboard, entryForm].forEach((el) => {
           el.classList.add("hidden");
         });
         screen.classList.remove("hidden");
+      }
+
+      function setMood(mood) {
+        currentMood = mood;
+        alert(`Humor definido como: ${mood}`);
+      }
+
+      function insertEmoji(emoji) {
+        const textarea = document.getElementById("entryText");
+        textarea.value += emoji;
+        textarea.focus();
+      }
+
+      function createConfetti() {
+        for (let i = 0; i < 100; i++) {
+          const confetti = document.createElement("div");
+          confetti.className = "confetti";
+          confetti.style.left = `${Math.random() * 100}vw`;
+          confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+          confetti.style.animationDuration = `${Math.random() * 3 + 2}s`;
+          document.body.appendChild(confetti);
+          
+          setTimeout(() => {
+            confetti.remove();
+          }, 5000);
+        }
+      }
+
+      // Atualiza a data atual
+      function updateCurrentDate() {
+        const now = new Date();
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        currentDateDisplay.textContent = now.toLocaleDateString('pt-BR', options);
       }
 
       // Alternar tema
@@ -440,11 +478,16 @@
       newEntryBtn.addEventListener("click", () => {
         document.getElementById("entryTitle").value = "";
         document.getElementById("entryText").value = "";
+        updateCurrentDate();
         showScreen(entryForm);
       });
 
       cancelEntryBtn.addEventListener("click", () => {
         showScreen(dashboard);
+      });
+
+      celebrateBtn.addEventListener("click", () => {
+        createConfetti();
       });
 
       saveEntryBtn.addEventListener("click", async () => {
@@ -463,21 +506,32 @@
           return;
         }
 
+        // Mostrar feedback visual
+        saveEntryBtn.disabled = true;
+        saveEntryBtn.innerHTML = '<span>⏳</span> Salvando...';
+
         try {
           // Salva a entrada no Firestore
-          await addDoc(collection(db, "entries"), {
+          const docRef = await addDoc(collection(db, "entries"), {
             userId: user.uid,
+            userName: user.displayName || user.email,
             title: title,
-            text: text,
+            content: text,
+            mood: currentMood,
             createdAt: serverTimestamp(),
             updatedAt: serverTimestamp()
           });
           
+          console.log("Registro salvo com ID: ", docRef.id);
           alert("Registro salvo com sucesso!");
           showScreen(dashboard);
         } catch (error) {
+          console.error("Erro ao adicionar documento: ", error);
           alert("Erro ao salvar registro: " + error.message);
-          console.error("Erro ao salvar entrada:", error);
+        } finally {
+          // Restaurar botão
+          saveEntryBtn.disabled = false;
+          saveEntryBtn.innerHTML = '<span>💾</span> Salvar';
         }
       });
 
@@ -489,8 +543,10 @@
         } else {
           showScreen(intro);
         }
-        
       });
+
+      // Inicializa a data atual
+      updateCurrentDate();
     </script>
   </body>
 </html>
