@@ -2,7 +2,7 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Diário Animado</title>
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
 
@@ -45,152 +45,380 @@
     </script>
   </head>
 
-  <body class="bg-gradient-to-br from-neutral to-secondary dark:from-gray-900 dark:to-gray-800 font-sans min-h-screen flex items-center justify-center px-4 transition-colors duration-500" id="mainBody">
-
-    <button id="themeToggle" class="absolute top-4 right-4 bg-primary text-white px-4 py-2 rounded-full shadow-md hover:bg-blue-900 transition">
+  <body
+    class="bg-gradient-to-br from-neutral to-secondary dark:from-gray-900 dark:to-gray-800 font-sans min-h-screen flex items-center justify-center px-4 transition-colors duration-500"
+    id="mainBody"
+  >
+    <button
+      id="themeToggle"
+      class="absolute top-4 right-4 bg-primary text-white px-4 py-2 rounded-full shadow-md hover:bg-blue-900 transition"
+    >
       🌙 Modo Escuro
     </button>
 
-    <div id="intro" class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 text-center animate-fadeIn max-w-md transition-all duration-300 transform hover:scale-[1.01]">
-      <img src="https://cdn-icons-png.flaticon.com/512/742/742751.png" alt="Ícone do diário" class="mx-auto w-24 h-24 mb-6 animate-bounceIn drop-shadow-xl" />
-      <h1 class="text-3xl text-primary dark:text-white font-bold mb-3">Olá, bem-vindo(a) ao Diário Animado</h1>
-      <p class="text-gray-700 dark:text-gray-300 mb-6 text-base">Um lugar seguro e moderno para registrar seus pensamentos, memórias e sonhos ✨</p>
-      <button id="startBtn" class="bg-accent hover:bg-green-400 text-primary font-medium py-2 px-6 rounded-full shadow-md transition transform hover:scale-105">
+    <div
+      id="intro"
+      class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 text-center animate-fadeIn max-w-md transition-all duration-300 transform hover:scale-[1.01]"
+    >
+      <img
+        src="https://cdn-icons-png.flaticon.com/512/742/742751.png"
+        alt="Ícone do diário"
+        class="mx-auto w-24 h-24 mb-6 animate-bounceIn drop-shadow-xl"
+      />
+      <h1 class="text-3xl text-primary dark:text-white font-bold mb-3">
+        Olá, bem-vindo(a) ao Diário Animado
+      </h1>
+      <p class="text-gray-700 dark:text-gray-300 mb-6 text-base">
+        Um lugar seguro e moderno para registrar seus pensamentos, memórias e
+        sonhos ✨
+      </p>
+      <button
+        id="startBtn"
+        class="bg-accent hover:bg-green-400 text-primary font-medium py-2 px-6 rounded-full shadow-md transition transform hover:scale-105"
+      >
         Começar agora
       </button>
     </div>
 
-    <div id="loginForm" class="hidden bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 text-center max-w-md animate-fadeIn transition-all duration-300 transform hover:scale-[1.01]">
+    <div
+      id="loginForm"
+      class="hidden bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 text-center max-w-md animate-fadeIn transition-all duration-300 transform hover:scale-[1.01]"
+    >
       <h2 class="text-2xl text-primary dark:text-white font-bold mb-4">Login</h2>
-      <input id="loginEmail" type="email" placeholder="Email" class="w-full p-2 mb-3 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-black dark:text-white" />
-      <input id="loginPassword" type="password" placeholder="Senha" class="w-full p-2 mb-4 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-black dark:text-white" />
+      <input
+        id="loginEmail"
+        type="email"
+        placeholder="Email"
+        class="w-full p-2 mb-3 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-black dark:text-white"
+      />
+      <input
+        id="loginPassword"
+        type="password"
+        placeholder="Senha"
+        class="w-full p-2 mb-4 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-black dark:text-white"
+      />
       <div class="flex justify-center gap-4">
-        <button id="loginBtn" class="bg-primary text-white py-2 px-6 rounded-full hover:bg-blue-800 transition">Entrar</button>
-        <button id="createAccountBtn" class="bg-primary text-white py-2 px-6 rounded-full hover:bg-blue-800 transition">Criar conta</button>
+        <button
+          id="loginBtn"
+          class="bg-primary text-white py-2 px-6 rounded-full hover:bg-blue-800 transition"
+        >
+          Entrar
+        </button>
+        <button
+          id="createAccountBtn"
+          class="bg-primary text-white py-2 px-6 rounded-full hover:bg-blue-800 transition"
+        >
+          Criar conta
+        </button>
       </div>
-      <button id="backBtn" class="mt-6 text-primary dark:text-white hover:underline text-sm">← Voltar à página inicial</button>
+      <button
+        id="backBtn"
+        class="mt-6 text-primary dark:text-white hover:underline text-sm"
+      >
+        ← Voltar à página inicial
+      </button>
     </div>
 
-    <div id="registerForm" class="hidden bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 text-center max-w-md animate-fadeIn transition-all duration-300 transform hover:scale-[1.01]">
-      <h2 class="text-2xl text-primary dark:text-white font-bold mb-4">Criar Conta</h2>
-      <input id="registerName" type="text" placeholder="Nome" class="w-full p-2 mb-3 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-black dark:text-white" />
-      <input id="registerEmail" type="email" placeholder="Email" class="w-full p-2 mb-3 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-black dark:text-white" />
-      <input id="registerPassword" type="password" placeholder="Senha" class="w-full p-2 mb-4 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-black dark:text-white" />
-      <button id="registerBtn" class="bg-primary text-white py-2 px-6 rounded-full hover:bg-blue-800 transition">Registrar</button>
-      <button id="backToLoginBtn" class="mt-6 text-primary dark:text-white hover:underline text-sm">← Voltar ao login</button>
+    <div
+      id="registerForm"
+      class="hidden bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 text-center max-w-md animate-fadeIn transition-all duration-300 transform hover:scale-[1.01]"
+    >
+      <h2 class="text-2xl text-primary dark:text-white font-bold mb-4">
+        Criar Conta
+      </h2>
+      <input
+        id="registerName"
+        type="text"
+        placeholder="Nome"
+        class="w-full p-2 mb-3 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-black dark:text-white"
+      />
+      <input
+        id="registerEmail"
+        type="email"
+        placeholder="Email"
+        class="w-full p-2 mb-3 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-black dark:text-white"
+      />
+      <input
+        id="registerPassword"
+        type="password"
+        placeholder="Senha"
+        class="w-full p-2 mb-4 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-black dark:text-white"
+      />
+      <button
+        id="registerBtn"
+        type="button"
+        class="bg-primary text-white py-2 px-6 rounded-full hover:bg-blue-800 transition"
+      >
+        Registrar
+      </button>
+      <button
+        id="backToLoginBtn"
+        class="mt-6 text-primary dark:text-white hover:underline text-sm"
+      >
+        ← Voltar ao login
+      </button>
     </div>
 
-    <div id="dashboard" class="hidden bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 text-center max-w-md animate-fadeIn transition-all duration-300 transform hover:scale-[1.01]">
-      <h2 class="text-2xl text-primary dark:text-white font-bold mb-4">Bem-vindo(a), <span id="userName"></span>!</h2>
-      <p class="text-gray-700 dark:text-gray-300 mb-6">Aqui você pode registrar seus pensamentos, memórias e sonhos.</p>
-      <button id="newEntryBtn" class="bg-accent text-primary py-2 px-6 rounded-full shadow-md hover:bg-green-400 transition mb-4">Iniciar Novo Registro</button>
-      <button id="logoutBtn" class="bg-primary text-white py-2 px-6 rounded-full hover:bg-blue-800 transition">Sair</button>
+    <div
+      id="dashboard"
+      class="hidden bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 text-center max-w-md animate-fadeIn transition-all duration-300 transform hover:scale-[1.01]"
+    >
+      <h2
+        class="text-2xl text-primary dark:text-white font-bold mb-4"
+      >
+        Bem-vindo(a), <span id="userName"></span>!
+      </h2>
+      <p class="text-gray-700 dark:text-gray-300 mb-6">
+        Aqui você pode registrar seus pensamentos, memórias e sonhos.
+      </p>
+      <button
+        id="newEntryBtn"
+        class="bg-accent text-primary py-2 px-6 rounded-full shadow-md hover:bg-green-400 transition mb-4"
+      >
+        Iniciar Novo Registro
+      </button>
+      <button
+        id="logoutBtn"
+        class="bg-primary text-white py-2 px-6 rounded-full hover:bg-blue-800 transition"
+      >
+        Sair
+      </button>
     </div>
 
-    <script>
-      // Referências aos elementos
-      const themeToggle = document.getElementById('themeToggle');
-      const mainBody = document.getElementById('mainBody');
+    <!-- Novo formulário de registro -->
+    <div
+      id="entryForm"
+      class="hidden bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 text-center max-w-md animate-fadeIn transition-all duration-300 transform hover:scale-[1.01]"
+    >
+      <h2 class="text-2xl text-primary dark:text-white font-bold mb-4">
+        Novo Registro
+      </h2>
+      <input
+        id="entryTitle"
+        type="text"
+        placeholder="Título"
+        class="w-full p-2 mb-3 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-black dark:text-white"
+      />
+      <textarea
+        id="entryText"
+        rows="5"
+        placeholder="Descrição"
+        class="w-full p-2 mb-4 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-black dark:text-white"
+      ></textarea>
+      <div class="flex justify-center gap-4">
+        <button
+          id="saveEntryBtn"
+          class="bg-primary text-white py-2 px-6 rounded-full hover:bg-blue-800 transition"
+        >
+          Salvar
+        </button>
+        <button
+          id="cancelEntryBtn"
+          class="bg-gray-500 text-white py-2 px-6 rounded-full hover:bg-gray-600 transition"
+        >
+          Cancelar
+        </button>
+      </div>
+    </div>
 
-      const intro = document.getElementById('intro');
-      const loginForm = document.getElementById('loginForm');
-      const registerForm = document.getElementById('registerForm');
-      const dashboard = document.getElementById('dashboard');
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+      import {
+        getAuth,
+        onAuthStateChanged,
+        signInWithEmailAndPassword,
+        createUserWithEmailAndPassword,
+        updateProfile,
+        signOut,
+      } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
+      import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
 
-      const startBtn = document.getElementById('startBtn');
-      const createAccountBtn = document.getElementById('createAccountBtn');
-      const backBtn = document.getElementById('backBtn');
-      const backToLoginBtn = document.getElementById('backToLoginBtn');
+      // Configuração do Firebase com suas credenciais
+      const firebaseConfig = {
+        apiKey: "AIzaSyBPl-srmPiWmAzA6OuXyCsUdts8B6ipCBM",
+        authDomain: "diario-55359.firebaseapp.com",
+        projectId: "diario-55359",
+        storageBucket: "diario-55359.firebasestorage.app",
+        messagingSenderId: "229362802589",
+        appId: "1:229362802589:web:c3586269c128e4f4919974",
+        measurementId: "G-71JDE9PP8K"
+      };
 
-      const loginBtn = document.getElementById('loginBtn');
-      const registerBtn = document.getElementById('registerBtn');
+      // Inicializa Firebase
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const db = getFirestore(app);
 
-      const logoutBtn = document.getElementById('logoutBtn');
-      const newEntryBtn = document.getElementById('newEntryBtn');
+      // Elementos do DOM
+      const intro = document.getElementById("intro");
+      const loginForm = document.getElementById("loginForm");
+      const registerForm = document.getElementById("registerForm");
+      const dashboard = document.getElementById("dashboard");
+      const entryForm = document.getElementById("entryForm");
 
-      const userNameSpan = document.getElementById('userName');
+      const startBtn = document.getElementById("startBtn");
+      const createAccountBtn = document.getElementById("createAccountBtn");
+      const backBtn = document.getElementById("backBtn");
+      const backToLoginBtn = document.getElementById("backToLoginBtn");
+      const loginBtn = document.getElementById("loginBtn");
+      const registerBtn = document.getElementById("registerBtn");
+      const logoutBtn = document.getElementById("logoutBtn");
+      const newEntryBtn = document.getElementById("newEntryBtn");
+      const saveEntryBtn = document.getElementById("saveEntryBtn");
+      const cancelEntryBtn = document.getElementById("cancelEntryBtn");
 
-      // Troca de tema (claro / escuro)
-      themeToggle.addEventListener('click', () => {
-        if (document.documentElement.classList.contains('dark')) {
-          document.documentElement.classList.remove('dark');
-          themeToggle.textContent = '🌙 Modo Escuro';
-        } else {
-          document.documentElement.classList.add('dark');
-          themeToggle.textContent = '☀️ Modo Claro';
-        }
-      });
+      const userNameDisplay = document.getElementById("userName");
 
-      // Função para esconder todos os "pages"
-      function hideAll() {
-        intro.classList.add('hidden');
-        loginForm.classList.add('hidden');
-        registerForm.classList.add('hidden');
-        dashboard.classList.add('hidden');
+      // Controle de telas
+      function showScreen(screen) {
+        [intro, loginForm, registerForm, dashboard, entryForm].forEach((el) => {
+          el.classList.add("hidden");
+        });
+        screen.classList.remove("hidden");
       }
 
-      // Começar na tela intro
-      hideAll();
-      intro.classList.remove('hidden');
-
-      // Botão "Começar agora" -> mostra tela login
-      startBtn.addEventListener('click', () => {
-        hideAll();
-        loginForm.classList.remove('hidden');
+      // Alternar tema
+      const themeToggle = document.getElementById("themeToggle");
+      themeToggle.addEventListener("click", () => {
+        document.body.classList.toggle("dark");
+        if (document.body.classList.contains("dark")) {
+          themeToggle.textContent = "☀️ Modo Claro";
+        } else {
+          themeToggle.textContent = "🌙 Modo Escuro";
+        }
       });
 
-      // Botão "Criar conta" no login -> mostra tela registro
-      createAccountBtn.addEventListener('click', () => {
-        hideAll();
-        registerForm.classList.remove('hidden');
+      // Eventos dos botões
+      startBtn.addEventListener("click", () => {
+        showScreen(loginForm);
       });
 
-      // Botão "Voltar à página inicial" no login -> mostra intro
-      backBtn.addEventListener('click', () => {
-        hideAll();
-        intro.classList.remove('hidden');
+      createAccountBtn.addEventListener("click", () => {
+        showScreen(registerForm);
       });
 
-      // Botão "Voltar ao login" no registro -> mostra login
-      backToLoginBtn.addEventListener('click', () => {
-        hideAll();
-        loginForm.classList.remove('hidden');
+      backBtn.addEventListener("click", () => {
+        showScreen(intro);
       });
 
-      // Botão "Entrar" (login) - aqui só simula sucesso e vai para dashboard
-      loginBtn.addEventListener('click', () => {
-        // Simulação: pega email para mostrar no dashboard
-        const email = document.getElementById('loginEmail').value;
-        if (email.trim() === '') {
-          alert('Por favor, insira seu email');
+      backToLoginBtn.addEventListener("click", () => {
+        showScreen(loginForm);
+      });
+
+      loginBtn.addEventListener("click", async () => {
+        const email = document.getElementById("loginEmail").value.trim();
+        const password = document.getElementById("loginPassword").value.trim();
+
+        if (!email || !password) {
+          alert("Por favor, preencha todos os campos.");
           return;
         }
-        userNameSpan.textContent = email;
-        hideAll();
-        dashboard.classList.remove('hidden');
+
+        try {
+          const userCredential = await signInWithEmailAndPassword(auth, email, password);
+          const user = userCredential.user;
+          userNameDisplay.textContent = user.displayName || user.email;
+          showScreen(dashboard);
+        } catch (error) {
+          alert("Erro ao entrar: " + error.message);
+          console.error("Erro de login:", error);
+        }
       });
 
-      // Botão "Registrar" (registro) - simulação
-      registerBtn.addEventListener('click', () => {
-        const name = document.getElementById('registerName').value;
-        if (name.trim() === '') {
-          alert('Por favor, insira seu nome');
+      registerBtn.addEventListener("click", async () => {
+        const name = document.getElementById("registerName").value.trim();
+        const email = document.getElementById("registerEmail").value.trim();
+        const password = document.getElementById("registerPassword").value.trim();
+
+        if (!name || !email || !password) {
+          alert("Por favor, preencha todos os campos.");
           return;
         }
-        userNameSpan.textContent = name;
-        hideAll();
-        dashboard.classList.remove('hidden');
+
+        try {
+          const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+          const user = userCredential.user;
+          
+          // Atualiza o nome do usuário
+          await updateProfile(user, { displayName: name });
+          userNameDisplay.textContent = name;
+          showScreen(dashboard);
+          
+          // Cria um documento inicial para o usuário
+          await addDoc(collection(db, "users"), {
+            uid: user.uid,
+            name: name,
+            email: email,
+            createdAt: serverTimestamp()
+          });
+        } catch (error) {
+          alert("Erro ao registrar: " + error.message);
+          console.error("Erro de registro:", error);
+        }
       });
 
-      // Botão "Sair" no dashboard volta para a intro
-      logoutBtn.addEventListener('click', () => {
-        hideAll();
-        intro.classList.remove('hidden');
+      logoutBtn.addEventListener("click", async () => {
+        try {
+          await signOut(auth);
+          showScreen(intro);
+        } catch (error) {
+          alert("Erro ao sair: " + error.message);
+          console.error("Erro ao deslogar:", error);
+        }
       });
 
-      // Botão "Iniciar Novo Registro" - placeholder (alerta)
-      newEntryBtn.addEventListener('click', () => {
-        alert('Funcionalidade para novo registro em desenvolvimento!');
+      newEntryBtn.addEventListener("click", () => {
+        document.getElementById("entryTitle").value = "";
+        document.getElementById("entryText").value = "";
+        showScreen(entryForm);
+      });
+
+      cancelEntryBtn.addEventListener("click", () => {
+        showScreen(dashboard);
+      });
+
+      saveEntryBtn.addEventListener("click", async () => {
+        const title = document.getElementById("entryTitle").value.trim();
+        const text = document.getElementById("entryText").value.trim();
+        const user = auth.currentUser;
+
+        if (!title || !text) {
+          alert("Por favor, preencha título e descrição.");
+          return;
+        }
+
+        if (!user) {
+          alert("Você precisa estar logado para salvar registros.");
+          showScreen(loginForm);
+          return;
+        }
+
+        try {
+          // Salva a entrada no Firestore
+          await addDoc(collection(db, "entries"), {
+            userId: user.uid,
+            title: title,
+            text: text,
+            createdAt: serverTimestamp(),
+            updatedAt: serverTimestamp()
+          });
+          
+          alert("Registro salvo com sucesso!");
+          showScreen(dashboard);
+        } catch (error) {
+          alert("Erro ao salvar registro: " + error.message);
+          console.error("Erro ao salvar entrada:", error);
+        }
+      });
+
+      // Verifica estado de autenticação ao carregar a página
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          userNameDisplay.textContent = user.displayName || user.email;
+          showScreen(dashboard);
+        } else {
+          showScreen(intro);
+        }
       });
     </script>
   </body>

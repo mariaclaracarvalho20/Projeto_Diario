@@ -1,21 +1,21 @@
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
-const auth = getAuth();
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyBPl-srmPiWmAzA6OuXyCsUdts8B6ipCBM",
+  authDomain: "diario-55359.firebaseapp.com",
+  projectId: "diario-55359",
+  storageBucket: "diario-55359.firebasestorage.app",
+  messagingSenderId: "229362802589",
+  appId: "1:229362802589:web:c3586269c128e4f4919974",
+  measurementId: "G-71JDE9PP8K"
+};
 
-const form = document.getElementById('register-form');
-const message = document.getElementById('message');
-
-form.addEventListener('submit', async (e) => {
-  e.preventDefault(); // evitar o reload da página
-
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
-
-  try {
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    message.textContent = "Usuário registrado com sucesso!";
-    form.reset();
-  } catch (error) {
-    message.textContent = `Erro: ${error.message}`;
-  }
-});
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
