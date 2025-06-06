@@ -172,35 +172,121 @@
     <!-- Novo formulário de registro -->
     <div
       id="entryForm"
-      class="hidden bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 text-center max-w-md animate-fadeIn transition-all duration-300 transform hover:scale-[1.01]"
+      class="hidden bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 max-w-3xl animate-fadeIn transition-all duration-300"
     >
-      <h2 class="text-2xl text-primary dark:text-white font-bold mb-4">
-        Novo Registro
+      <style>
+        /* Estilos específicos para o diário dentro do Tailwind */
+        .diary-textarea {
+          width: 100%;
+          height: 300px;
+          border: 2px dashed #ff6b6b;
+          border-radius: 15px;
+          padding: 15px;
+          font-size: 1.1em;
+          resize: none;
+          transition: all 0.3s;
+          background: rgba(255, 255, 255, 0.7);
+          color: #333;
+        }
+        
+        .dark .diary-textarea {
+          background: rgba(30, 30, 30, 0.7);
+          color: #fff;
+          border-color: #4ca1af;
+        }
+        
+        .diary-textarea:focus {
+          border: 2px solid #ff6b6b;
+          box-shadow: 0 0 10px rgba(255, 107, 107, 0.3);
+          outline: none;
+        }
+        
+        .emoji-btn {
+          font-size: 1.5em;
+          cursor: pointer;
+          transition: transform 0.2s;
+        }
+        
+        .emoji-btn:hover {
+          transform: scale(1.2);
+        }
+        
+        .mood-btn {
+          background: none;
+          border: none;
+          font-size: 2em;
+          cursor: pointer;
+          margin: 0 5px;
+        }
+        
+        .confetti {
+          position: fixed;
+          width: 10px;
+          height: 10px;
+          background-color: #f00;
+          animation: confettiFall 5s linear infinite;
+        }
+        
+        @keyframes confettiFall {
+          0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+          100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+      </style>
+
+      <h2 class="text-2xl text-primary dark:text-white font-bold mb-4 text-center">
+        🌟 Novo Registro Feliz 🌟
       </h2>
+      
+      <div class="text-primary dark:text-white mb-4 text-center" id="current-date"></div>
+      
+      <div class="mood-selector text-center mb-4">
+        <p class="text-gray-700 dark:text-gray-300 mb-2">Como está seu humor hoje?</p>
+        <button class="mood-btn" onclick="setMood('😊')">😊</button>
+        <button class="mood-btn" onclick="setMood('😂')">😂</button>
+        <button class="mood-btn" onclick="setMood('🥰')">🥰</button>
+        <button class="mood-btn" onclick="setMood('😎')">😎</button>
+        <button class="mood-btn" onclick="setMood('🤩')">🤩</button>
+      </div>
+
+      <div class="emoji-picker flex justify-center gap-3 mb-4">
+        <span class="emoji-btn" onclick="insertEmoji('😊')">😊</span>
+        <span class="emoji-btn" onclick="insertEmoji('🌈')">🌈</span>
+        <span class="emoji-btn" onclick="insertEmoji('🎉')">🎉</span>
+        <span class="emoji-btn" onclick="insertEmoji('✨')">✨</span>
+        <span class="emoji-btn" onclick="insertEmoji('🌸')">🌸</span>
+      </div>
+
       <input
         id="entryTitle"
         type="text"
-        placeholder="Título"
+        placeholder="Título do seu dia"
         class="w-full p-2 mb-3 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-black dark:text-white"
       />
+      
       <textarea
         id="entryText"
-        rows="5"
-        placeholder="Descrição"
-        class="w-full p-2 mb-4 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-black dark:text-white"
+        class="diary-textarea"
+        placeholder="Escreva aqui sobre seu dia feliz..."
       ></textarea>
-      <div class="flex justify-center gap-4">
+
+      <div class="flex justify-center gap-4 mt-6">
         <button
           id="saveEntryBtn"
-          class="bg-primary text-white py-2 px-6 rounded-full hover:bg-blue-800 transition"
+          class="bg-primary text-white py-2 px-6 rounded-full hover:bg-blue-800 transition flex items-center gap-2"
         >
-          Salvar
+          <span>💾</span> Salvar
+        </button>
+        <button
+          id="celebrateBtn"
+          class="bg-accent text-primary py-2 px-6 rounded-full hover:bg-green-400 transition flex items-center gap-2"
+        >
+          <span>🎉</span> Celebrar!
         </button>
         <button
           id="cancelEntryBtn"
-          class="bg-gray-500 text-white py-2 px-6 rounded-full hover:bg-gray-600 transition"
+          class="bg-gray-500 text-white py-2 px-6 rounded-full hover:bg-gray-600 transition flex items-center gap-2"
         >
-          Cancelar
+          <span>✖</span> Cancelar
         </button>
       </div>
     </div>
@@ -403,6 +489,7 @@
         } else {
           showScreen(intro);
         }
+        
       });
     </script>
   </body>
